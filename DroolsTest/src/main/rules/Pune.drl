@@ -1,0 +1,43 @@
+// created on: Dec 24, 2014
+package droolsexample
+
+// list any import classes here.
+import com.sample.ItemCity;
+import java.math.BigDecimal;
+
+
+//import java class
+import com.sample.HelloCity;
+import com.sample.ItemCity;
+
+
+// declare any global variables here
+dialect "java"
+
+rule "Pune Medicine Item"
+   
+   when
+      item : ItemCity (purchaseCity == ItemCity.City.PUNE,
+                       typeofItem == ItemCity.Type.MEDICINES)
+   
+   then
+      BigDecimal tax = new BigDecimal(0.0);
+      item.setLocalTax(tax.multiply(item.getSellPrice()));
+      HelloCity.writeName(item.getPurchaseCity().toString());
+       System.out.println("Inside  Pune Medicine Item ");
+end
+
+
+rule "Pune Groceries Item"
+   
+   when
+      item : ItemCity(purchaseCity == ItemCity.City.PUNE,
+                      typeofItem == ItemCity.Type.GROCERIES)
+   
+   then
+      BigDecimal tax = new BigDecimal(2.0);
+      item.setLocalTax(tax.multiply(item.getSellPrice()));
+      HelloCity.writeName(item.getPurchaseCity().toString());
+	 System.out.println("Inside  Pune Groceries Item ");
+end
+
